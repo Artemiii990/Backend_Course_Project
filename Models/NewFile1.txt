@@ -1,0 +1,5 @@
+dotnet ef migrations add FixPricePrecision
+
+потом
+
+dotnet ef database update
