@@ -9,4 +9,6 @@ public class Product
     public decimal Price { get; set; }
     
     public string ImageUrl { get; set; }
+    
+    public string CategorySlug { get; set; }
 }

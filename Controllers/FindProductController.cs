@@ -37,4 +37,22 @@ public class FindProductController : ControllerBase
 
         return Ok(products);
     }
+    
+    [HttpGet("category/{slug}")]
+    public async Task<IActionResult> GetByCategory(string slug)
+    {
+        if (string.IsNullOrWhiteSpace(slug))
+            return BadRequest("Slug is required");
+
+        slug = slug.Trim().ToLower();
+
+        var products = await _context.Products
+            .Where(p => p.CategorySlug != null &&
+                        p.CategorySlug.ToLower() == slug)
+            .ToListAsync();
+
+        return Ok(products);
+    }
+    
+    
 }
