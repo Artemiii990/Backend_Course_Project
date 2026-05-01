@@ -1,12 +1,58 @@
 {
   "Version": 1,
   "WorkspaceRootPath": "D:\\Course_project\\Backend-Course-Project\\WebApplication1\\",
-  "Documents": [],
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{19317912-AC4B-45A3-1276-85453B678B5B}|WebApplication1.csproj|d:\\course_project\\backend-course-project\\webapplication1\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{19317912-AC4B-45A3-1276-85453B678B5B}|WebApplication1.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{19317912-AC4B-45A3-1276-85453B678B5B}|WebApplication1.csproj|d:\\course_project\\backend-course-project\\webapplication1\\webapplication1.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{19317912-AC4B-45A3-1276-85453B678B5B}|WebApplication1.csproj|solutionrelative:webapplication1.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
       "VerticalTabListWidth": 256,
-      "DocumentGroups": []
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 2,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{34e76e81-ee4a-11d0-ae2e-00a0c90fffc3}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "WebApplication1.http",
+              "DocumentMoniker": "D:\\Course_project\\Backend-Course-Project\\WebApplication1\\WebApplication1.http",
+              "RelativeDocumentMoniker": "WebApplication1.http",
+              "ToolTip": "D:\\Course_project\\Backend-Course-Project\\WebApplication1\\WebApplication1.http",
+              "RelativeToolTip": "WebApplication1.http",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2026-04-10T14:13:06.812Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Course_project\\Backend-Course-Project\\WebApplication1\\appsettings.json",
+              "RelativeDocumentMoniker": "appsettings.json",
+              "ToolTip": "D:\\Course_project\\Backend-Course-Project\\WebApplication1\\appsettings.json",
+              "RelativeToolTip": "appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-04-10T14:11:20.96Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
     }
   ]
 }

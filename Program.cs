@@ -1,12 +1,13 @@
 using System.Text;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using WebApplication1.Models;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.WebHost.UseUrls("http://0.0.0.0:8080");
 
 // --- Services ---
 builder.Services.AddControllers();
@@ -16,19 +17,16 @@ builder.Services.AddSwaggerGen(options =>
 {
     options.SwaggerDoc("v1", new OpenApiInfo
     {
-        Title = "Shop API",
+        Title = "Product API",
         Version = "v1"
     });
 
-    // JWT авторизация для Swagger
     options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
     {
         Name = "Authorization",
         Type = SecuritySchemeType.Http,
         Scheme = "bearer",
-        BearerFormat = "JWT",
-        In = ParameterLocation.Header,
-        Description = "Введите токен: Bearer {your JWT token}"
+        In = ParameterLocation.Header
     });
 
     options.AddSecurityRequirement(new OpenApiSecurityRequirement
@@ -38,8 +36,8 @@ builder.Services.AddSwaggerGen(options =>
             {
                 Reference = new OpenApiReference
                 {
-                    Type = ReferenceType.SecurityScheme,
-                    Id = "Bearer"
+                    Id = "Bearer",
+                    Type = ReferenceType.SecurityScheme
                 }
             },
             new string[] {}
@@ -47,46 +45,27 @@ builder.Services.AddSwaggerGen(options =>
     });
 });
 
-// --- DbContext ---
+// --- Db ---
 builder.Services.AddDbContext<AppDbContext>(options =>
-    options.UseSqlServer(
-        builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // --- CORS ---
-builder.Services.AddCors(options =>
-{
-    options.AddPolicy("react",
-        policy =>
-        {
-            policy.WithOrigins("http://localhost:5173")
-                .AllowAnyHeader()
-                .AllowAnyMethod();
-        });
-});
+builder.Services.AddCors();
 
-// --- Identity ---
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
-    .AddEntityFrameworkStores<AppDbContext>()
-    .AddDefaultTokenProviders();
-
-// --- JWT Authentication ---
-builder.Services.AddAuthentication(options =>
-{
-    options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-    options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-})
+// ✅ ОСТАВЛЯЕМ JWT (только проверка)
+builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 .AddJwtBearer(options =>
 {
     options.TokenValidationParameters = new TokenValidationParameters
     {
         ValidateIssuer = true,
         ValidateAudience = true,
-        ValidateLifetime = true,
         ValidateIssuerSigningKey = true,
+        ValidateLifetime = true,
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
+            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
     };
 });
 
@@ -94,18 +73,12 @@ builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
-// --- Pipeline ---
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+app.UseSwagger();
+app.UseSwaggerUI();
 
-app.UseCors("react");
+app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
-app.UseHttpsRedirection();
-
-app.UseAuthentication(); 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
